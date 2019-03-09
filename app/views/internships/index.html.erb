@@ -1,31 +1,50 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">Internships</h5>
+        <p class="card-category">All Internships ever offered.</p>
+      </div>
+      <div class="card-body ">
 
-<h1>Internships</h1>
+        <table id="table_id" class="display">
+          <thead>
+          <tr>
+            <th>Title</th>
+            <th>Company</th>
+            <th>Apply By</th>
+            <th>Start</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
 
-<table id="table_id" class="display">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Company</th>
-      <th>Apply By</th>
-      <th>Start</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
+          <tbody>
+          <% @internships.each do |internship| %>
+            <tr>
+              <td><%= internship.title %></td>
+              <td><%= link_to Company.find(internship.company_id).name, Company.find(internship.company_id),class: "btn btn-outline-dark" %></td>
+              <td><%= internship.deadline %></td>
+              <td><%= internship.start %></td>
+              <td>
+                <%= link_to 'Show', internship_path(internship), class: "btn btn-outline-secondary btn-sm" %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
 
-  <tbody>
-    <% @internships.each do |internship| %>
-      <tr>
-        <td><%= internship.title %></td>
-        <td><%= link_to Company.find(internship.company_id).name, Company.find(internship.company_id),class: "btn btn-outline-dark" %></td>
-        <td><%= internship.deadline %></td>
-        <td><%= internship.start %></td>
-        <td>
-          <%= link_to 'Show', internship_path(internship), class: "btn btn-outline-secondary btn-sm" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-history"></i> Updated 3 minutes ago
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <br>
 <script>

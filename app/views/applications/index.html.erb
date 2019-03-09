@@ -1,20 +1,49 @@
-<h1>My Applications</h1>
-
-    <% current_user.applications.each do |application| %>
-    <div class="card">
-      <div class="card-header">
-        <%=time_ago_in_words(application.created_at)%> ago
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">My Applications</h5>
+        <p class="card-category"></p>
       </div>
-      <div class="card-body">
-        <h5 class="card-title"><%= Internship.find(application.internship_id).title%></h5>
-        <p class="card-text"><%= application.answer %></p>
-        <p class="card-text"><%= application.status %></p>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <%= link_to 'Show', application, class: "btn btn-outline-dark btn-sm" %>
-          <%= link_to 'Edit', edit_application_path(application), class: "btn btn-outline-dark btn-sm" %>
-          <%= link_to 'Destroy', application, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-dark btn-sm" %>
+      <div class="card-body ">
+
+        <% current_user.applications.each do |application| %>
+          <div class="card">
+            <div class="card-header">
+              <%=time_ago_in_words(application.created_at)%> ago
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"><%= Internship.find(application.internship_id).title%></h5>
+              <p class="card-text"><%= application.answer %></p>
+              <p class="card-text"><%= application.status %></p>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <%= link_to 'Show', application, class: "btn btn-outline-dark btn-sm" %>
+                <%= link_to 'Edit', edit_application_path(application), class: "btn btn-outline-dark btn-sm" %>
+                <%= link_to 'Destroy', application, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-dark btn-sm" %>
+              </div>
+            </div>
+          </div>
+          <br>
+        <% end %>
+
+
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-history"></i> Updated 3 minutes ago
         </div>
       </div>
     </div>
-  <br>
-    <% end %>
+  </div>
+</div>
+
+
+<br>
+
+
+<script>
+    $(document).ready( function () {
+        $('#company_table').DataTable();
+    } );
+</script>
