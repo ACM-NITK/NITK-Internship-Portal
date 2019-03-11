@@ -1,7 +1,5 @@
-
 <div class="sidebar" data-color="white" data-active-color="danger">
   <!--
-  sidebar
     Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
 -->
   <div class="logo">
@@ -20,7 +18,7 @@
   <div class="sidebar-wrapper">
     <ul class="nav">
 
-      <li class="active ">
+      <li>
         <a href="./dashboard.html">
           <i class="nc-icon nc-bank"></i>
           <p>Dashboard</p>
@@ -29,28 +27,29 @@
 
 
       <% if user_signed_in? %>
-        <li>
+        <li class="<%= activeClass(internships_path) %>">
           <a href="/internships">
             <i class="nc-icon nc-diamond"></i>
             <p>Internships</p>
           </a>
         </li>
 
-        <li>
+        <li class="<%= activeClass(companies_path) %>">
           <a href="/companies">
             <i class="nc-icon nc-pin-3"></i>
             <p>Companies</p>
           </a>
         </li>
-        <li>
+        <li class="<%= activeClass(applications_path) %>">
           <a href="/applications">
             <i class="nc-icon nc-bell-55"></i>
             <p>My Applications</p>
           </a>
         </li>
 
-        <li>
-          <a href="#">
+        <li class="<%= activeClass(student_table_path(StudentTable.find_by_user_id(current_user.id))) %>">
+          <%#= link_to 'User Profile', student_table_path(StudentTable.where(user_id: current_user.id)) %>
+          <a href="/student_tables/<%= StudentTable.find_by_user_id(current_user.id).id %>">
             <i class="nc-icon nc-single-02"></i>
             <p>User Profile</p>
           </a>

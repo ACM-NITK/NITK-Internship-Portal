@@ -1,0 +1,41 @@
+
+<p>
+  <strong>Name:</strong>
+  <%= @student_table.name %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <% if @student_table.gender == true %>
+    Male
+  <% else %>
+    Female
+  <% end %>
+    </p>
+<p>
+  <strong>Branch:</strong>
+  <%= @student_table.branch %>
+</p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @student_table.semester %>
+</p>
+
+<p>
+  <strong>CGPA:</strong>
+  <%= @student_table.cgpa %>
+</p>
+
+<p>
+  <strong>Permanent Address:</strong>
+  <%= @student_table.permanentAddress %>
+</p>
+
+<p>
+  <strong>Contact Number:</strong>
+  <%= @student_table.contactNumber %>
+</p>
+
+<%= link_to 'Edit', edit_student_table_path(@student_table), class: "btn btn-outline-secondary btn-sm" %>
+
