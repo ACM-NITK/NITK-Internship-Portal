@@ -46,6 +46,11 @@
     <%= form.number_field :semester, class: "form-control" %>
   </div>
 
+  <div class="field">
+    <%= form.label :resume %>
+    <%= form.file_field :resume, class: "form-control" %>
+  </div>
+
   <div class="actions">
     <%= form.submit class: "btn btn-primary btn-sm"  %>
   </div>

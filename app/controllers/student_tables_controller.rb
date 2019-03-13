@@ -25,6 +25,7 @@ class StudentTablesController < ApplicationController
   # POST /student_tables.json
   def create
     @student_table = StudentTable.new(student_table_params)
+    @student_table.resume.attach(params[:student_table][:resume])
 
     respond_to do |format|
       if @student_table.save
@@ -69,6 +70,6 @@ class StudentTablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_table_params
-      params.require(:student_table).permit(:branch, :name, :contactNumber, :gender, :cgpa, :permanentAddress, :semester, :user_id)
+      params.require(:student_table).permit(:branch, :name, :contactNumber, :gender, :cgpa, :permanentAddress, :semester, :resume)
     end
 end

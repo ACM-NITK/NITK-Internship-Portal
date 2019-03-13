@@ -37,5 +37,10 @@
   <%= @student_table.contactNumber %>
 </p>
 
+<p>
+  <strong>Résumé:</strong>
+  <%= link_to 'View', @student_table.resume, :target => "_blank", class: "badge badge-success" %>
+</p>
+
 <%= link_to 'Edit', edit_student_table_path(@student_table), class: "btn btn-outline-secondary btn-sm" %>
 
