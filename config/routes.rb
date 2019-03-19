@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :answers
+  resources :questions
   resources :student_tables
   resources :applications
 
@@ -6,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :internships do
     resources :applications, only: [:new, :create]
+    resources :questions, only: [:new, :create]
   end
 
   resources :companies do

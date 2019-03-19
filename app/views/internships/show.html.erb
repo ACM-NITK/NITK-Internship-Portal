@@ -1,5 +1,3 @@
-
-
 <p>
   <strong>Title:</strong>
   <%= @internship.title %>
@@ -44,6 +42,16 @@
 <% end %>
 <br>
 <% if can? :manage, Internship %>
-  <%= link_to 'Edit', edit_internship_path(@internship), class: "btn btn-outline-secondary btn-sm" %> |
+  <strong>Questions</strong><br>
+  <tbody>
+  <% @internship.questions.each do |question| %>
+      <%= question.ques %>
+      <%= link_to 'Edit', edit_question_path(question) %>
+      <%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <br>
+  <% end %>
+  </tbody>
+  <%= link_to 'Add a Question', new_internship_question_path(@internship), class: "btn btn-outline-secondary btn-sm" %>
+  <%= link_to 'Edit', edit_internship_path(@internship), class: "btn btn-outline-secondary btn-sm" %>
   <%= link_to 'Destroy', @internship, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-secondary btn-sm" %>
 <% end %>
