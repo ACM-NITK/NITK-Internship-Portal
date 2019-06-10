@@ -34,12 +34,22 @@
           </a>
         </li>
 
+        <% if current_user.manager? %>
+          <li class="<%= activeClass(company_path(current_user.company.id)) %>">
+            <a href="/companies/<%= current_user.company.id %>">
+              <i class="nc-icon nc-pin-3"></i>
+              <p>My Company</p>
+            </a>
+
+          </li>
+          <% else %>
         <li class="<%= activeClass(companies_path) %>">
           <a href="/companies">
             <i class="nc-icon nc-pin-3"></i>
             <p>Companies</p>
           </a>
         </li>
+          <% end %>
         <li class="<%= activeClass(applications_path) %>">
           <a href="/applications">
             <i class="nc-icon nc-bell-55"></i>
@@ -47,6 +57,7 @@
           </a>
         </li>
 
+        <% if current_user.student? %>
         <li class="<%= activeClass(student_table_path(StudentTable.find_by_user_id(current_user.id))) %>">
           <%#= link_to 'User Profile', student_table_path(StudentTable.where(user_id: current_user.id)) %>
           <a href="/student_tables/<%= StudentTable.find_by_user_id(current_user.id).id %>">
@@ -54,7 +65,7 @@
             <p>User Profile</p>
           </a>
         </li>
-
+        <% end %>
       <% end %>
 
     </ul>

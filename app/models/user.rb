@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :companies, dependent: :destroy
+  has_many :company, dependent: :destroy
   has_many :applications, dependent: :destroy
   has_one :student_table, dependent: :destroy
   before_create :build_student_table

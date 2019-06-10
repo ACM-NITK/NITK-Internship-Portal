@@ -1,43 +1,89 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="card ">
-      <div class="card-header ">
-        <h5 class="card-title">My Applications</h5>
-        <p class="card-category"></p>
-      </div>
-      <div class="card-body ">
+<% if current_user.manager? %>
+<!--  if current user is manager then the applications only for his company will be viewed-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title">My Applications</h5>
+          <p class="card-category"></p>
+        </div>
+        <div class="card-body ">
 
-        <% current_user.applications.each do |application| %>
-          <div class="card">
-            <div class="card-header">
-              <%=time_ago_in_words(application.created_at)%> ago
-            </div>
-            <div class="card-body">
-              <h5 class="card-title"><%= Internship.find(application.internship_id).title%></h5>
-              <p class="card-text"><%= application.answer %></p>
-              <p class="card-text"><%= application.status %></p>
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <%= link_to 'Show', application, class: "btn btn-outline-dark btn-sm" %>
-                <%= link_to 'Edit', edit_application_path(application), class: "btn btn-outline-dark btn-sm" %>
-                <%= link_to 'Destroy', application, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-dark btn-sm" %>
+          <% @internships = Internship.where(company_id: current_user.company)%>
+          <% @internships.each do |internship| %>
+          <% Application.where(internship_id: internship.id).each do |application| %>
+            <div class="card">
+              <div class="card-header">
+                <%=time_ago_in_words(application.created_at)%> ago
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><%= Internship.find(application.internship_id).title%></h5>
+                <p class="card-text"><%= application.answer %></p>
+                <p class="card-text"><%= application.status %></p>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <%= link_to 'Show', application, class: "btn btn-outline-dark btn-sm" %>
+                </div>
               </div>
             </div>
+            <br>
+          <% end %>
+          <% end %>
+
+
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-history"></i> Updated 3 minutes ago
           </div>
-          <br>
-        <% end %>
-
-
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <i class="fa fa-history"></i> Updated 3 minutes ago
         </div>
       </div>
     </div>
   </div>
-</div>
 
+<% elsif current_user.student? %>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title">My Applications</h5>
+          <p class="card-category"></p>
+        </div>
+        <div class="card-body ">
+
+          <% current_user.applications.each do |application| %>
+            <div class="card">
+              <div class="card-header">
+                <%=time_ago_in_words(application.created_at)%> ago
+              </div>
+              <div class="card-body">
+               <h5 class="card-title"><%= Internship.find(application.internship_id).title%></h5>
+                <p class="card-text"><%= application.answer %></p>
+                <p class="card-text"><%= application.status %></p>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <%= link_to 'Show', application, class: "btn btn-outline-dark btn-sm" %>
+                  <%= link_to 'Edit', edit_application_path(application), class: "btn btn-outline-dark btn-sm" %>
+                  <%= link_to 'Destroy', application, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-dark btn-sm" %>
+                </div>
+              </div>
+           </div>
+            <br>
+          <% end %>
+
+
+        </div>
+        <div class="card-footer ">
+          <hr>
+         <div class="stats">
+            <i class="fa fa-history"></i> Updated 3 minutes ago
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>
 
 <br>
 

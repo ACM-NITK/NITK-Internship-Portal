@@ -1,19 +1,60 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Title:</strong>
+  <%= Internship.find(@application.internship_id).title %>
+</p>
+
+<p>
   <strong>Answer:</strong>
   <%= @application.answer %>
 </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @application.status %>
-</p>
+
+<% if current_user.manager? %>
+
+  <%= form_for([@internship, @application]) do |form| %>
+    <% if @application.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(application.errors.count, "error") %> prohibited this application from being saved:</h2>
+      </div>
+    <% end %>
+    <div class="field">
+      <strong><%= form.label :status %></strong>
+      <%= form.select :status, ["Applied", "Accepted", "Rejected"] %>
+      <%#= form.text_area :status, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit class: "btn btn-primary btn-sm" %>
+    </div>
+  <% end %>
+
+
+<!--  <div class="btn-group">-->
+<!--    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--      Mark as-->
+<!--    </button>-->
+<!--    <div class="dropdown-menu">-->
+<!--      <a class="dropdown-item" onclick="<%# @application.Accepted! %>" href="">Accepted</a>-->
+<!--      <a class="dropdown-item" onclick="<%# @application.Rejected! %>" href="">Rejected</a>-->
+<!--    </div>-->
+<!--  </div>-->
+<% end %>
 
 <p>
   <strong>Why do you want to apply for this internship?</strong>
   <%= @application.answer %>
 </p>
 
-<%= link_to 'Edit', edit_application_path(@application), class: "btn btn-outline-secondary btn-sm" %> |
-<%= link_to 'Back', applications_path, class: "btn btn-outline-secondary btn-sm" %>
+<% if current_user.manager? %>
+
+  <%= link_to "Show Applicant's Profile", student_table_path(User.find(@application.user_id)), class: "btn btn-outline-secondary btn-sm" %>
+  <%= link_to 'Back', applications_path, class: "btn btn-outline-secondary btn-sm" %>
+
+<% elsif current_user.student? %>
+
+  <%= link_to 'Edit', edit_application_path(@application), class: "btn btn-outline-secondary btn-sm" %> |
+  <%= link_to 'Back', applications_path, class: "btn btn-outline-secondary btn-sm" %>
+
+<% end %>

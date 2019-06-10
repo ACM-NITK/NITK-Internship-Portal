@@ -38,9 +38,15 @@
 </p>
 
 <p>
+
   <strong>Résumé:</strong>
-  <%= link_to 'View', @student_table.resume, :target => "_blank", class: "badge badge-success" %>
+  <% if @student_table.resume.attached? %>
+    <%= link_to 'View', @student_table.resume, :target => "_blank", class: "badge badge-success" %>
+  <% else %>
+    <p>Not Uploaded.</p>
+<% end %>
 </p>
 
-<%= link_to 'Edit', edit_student_table_path(@student_table), class: "btn btn-outline-secondary btn-sm" %>
-
+<% if current_user.student? %>
+  <%= link_to 'Edit', edit_student_table_path(@student_table), class: "btn btn-outline-secondary btn-sm" %>
+<% end %>

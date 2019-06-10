@@ -1,3 +1,5 @@
+<% if current_user.student? %>
+
 <div class="row">
   <div class="col-md-12">
     <div class="card ">
@@ -45,6 +47,107 @@
   </div>
 </div>
 
+<% elsif current_user.manager? %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title">Internships</h5>
+          <p class="card-category">All Internships ever offered.</p>
+        </div>
+        <div class="card-body ">
+
+          <table id="table_id" class="display">
+            <thead>
+            <tr>
+              <th>Title</th>
+              <th>Apply By</th>
+              <th>Start</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @internships = Internship.where(company_id: current_user.company)%>
+            <% @internships.each do |internship| %>
+              <tr>
+                <td><%= internship.title %></td>
+                <td><%= internship.deadline %></td>
+                <td><%= internship.start %></td>
+                <td>
+                  <%= link_to 'Show', internship_path(internship), class: "btn btn-outline-secondary btn-sm" %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+
+
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-history"></i> Updated 3 minutes ago
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= link_to "Post an Internship", new_company_internship_path(current_user.company) %>
+
+  <% else %>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card ">
+        <div class="card-header ">
+          <h5 class="card-title">Internships</h5>
+          <p class="card-category">All Internships ever offered.</p>
+        </div>
+        <div class="card-body ">
+
+          <table id="table_id" class="display">
+            <thead>
+            <tr>
+              <th>Title</th>
+              <th>Company</th>
+              <th>Apply By</th>
+              <th>Start</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @internships.each do |internship| %>
+              <tr>
+                <td><%= internship.title %></td>
+                <td><%= link_to Company.find(internship.company_id).name, Company.find(internship.company_id),class: "btn btn-outline-dark" %></td>
+                <td><%= internship.deadline %></td>
+                <td><%= internship.start %></td>
+                <td>
+                  <%= link_to 'Show', internship_path(internship), class: "btn btn-outline-secondary btn-sm" %>
+                  <%= link_to 'Edit', edit_internship_path(internship), class: "btn btn-outline-secondary btn-sm" %>
+                  <%= link_to 'Destroy', @internship, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-secondary btn-sm" %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+
+
+        </div>
+        <div class="card-footer ">
+          <hr>
+          <div class="stats">
+            <i class="fa fa-history"></i> Updated 3 minutes ago
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% end %>
 
 <br>
 <script>
